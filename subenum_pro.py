@@ -1296,14 +1296,12 @@ async def main(args):
                     log(f"  {Fore.RED}{Style.BRIGHT}[HIGH VALUE] {host}:{p} — {high_value[p]}{Style.RESET_ALL}", "WARN")
 
     # ── Phase 10: Screenshots & HTML Report ───────────────────────────────────
-    html_report = None
-    if args.screenshots or args.ports:
-        screener = ScreenshotEngine(output_dir, timeout=args.timeout)
-        if args.screenshots:
-            html_report = screener.run(http_results, port_results)
-        else:
-            # Just generate HTML report (no pixel screenshots)
-            html_report = screener.generate_html_report(http_results, port_results)
+    screener = ScreenshotEngine(output_dir, timeout=args.timeout)
+    if args.screenshots:
+        html_report = screener.run(http_results, port_results)
+    else:
+        # Just generate HTML report (no pixel screenshots)
+        html_report = screener.generate_html_report(http_results, port_results)
 
     # ── Save outputs ──────────────────────────────────────────────────────────
     log("Saving results...", "SECTION")
